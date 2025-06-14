@@ -5,11 +5,11 @@ import numpy as np
 
 class GameOfLife:
     def __init__(self, width=700, height=700, nxC=60, nyC=60, title="Juego de la vida - Clases"):
-        # Centro de ventana
+        # crear los cuadros
         os.environ["SDL_VIDEO_CENTERED"] = "1"
         pygame.init()
 
-        # Parámetros de ventana
+        # cuadros parametros
         self.width = width
         self.height = height
         self.nxC = nxC
@@ -18,16 +18,16 @@ class GameOfLife:
         self.dimCH = height / nyC
         self.bg = (25, 25, 25)
 
-        # Ventana
+    
         pygame.display.set_caption(title)
         self.screen = pygame.display.set_mode((width, height))
         self.screen.fill(self.bg)
 
-        # Estado de la rejilla
+        
         self.gameState = np.zeros((nxC, nyC), dtype=int)
         self._init_pattern()
 
-        # Flags de control
+        # Flags
         self.pauseExec = True
         self.endGame = False
         self.iteration = 0
@@ -53,10 +53,10 @@ class GameOfLife:
             self.screen.fill(self.bg)
             time.sleep(0.1)
 
-            # Eventos
+           
             self._handle_events(newState)
 
-            # Actualizar si no está en pausa
+            # actualizar si no esta en pausa
             if not self.pauseExec:
                 self.iteration += 1
                 self._update_state(newState)
@@ -65,7 +65,7 @@ class GameOfLife:
             population = self._draw_cells(newState)
             self.gameState[:] = newState
 
-            # Título
+            # titulos 
             title = f"Juego de la vida - Clases - Población: {population} - Gen: {self.iteration}"
             if self.pauseExec:
                 title += " - [PAUSADO]"
@@ -94,7 +94,7 @@ class GameOfLife:
                 else:
                     self.pauseExec = not self.pauseExec
 
-        # Mouse
+        #confi del mouse
         mouseClick = pygame.mouse.get_pressed()
         if any(mouseClick):
             if mouseClick[1]:
